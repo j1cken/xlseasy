@@ -13,13 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.adorsys.xlseasy.annotation.ErrorCodeSheet;
-import org.adorsys.xlseasy.annotation.FreezePaneObject;
-import org.adorsys.xlseasy.annotation.ISheetSession;
-import org.adorsys.xlseasy.annotation.SheetColumnObject;
-import org.adorsys.xlseasy.annotation.SheetFormatter;
-import org.adorsys.xlseasy.annotation.SheetObject;
-import org.adorsys.xlseasy.annotation.SheetSystemException;
+import org.adorsys.xlseasy.annotation.*;
 import org.adorsys.xlseasy.boot.WorkBookSheet;
 import org.adorsys.xlseasy.impl.converter.KeyGenerator;
 import org.adorsys.xlseasy.impl.proc.SheetDescIF;
@@ -119,7 +113,8 @@ public class SheetDescCbe<T, WT> implements SheetDescIF<T, WT> {
 	}
 
 	public String getLabel() {
-		return workBookSheet.getField().getName();
+		Sheet sheet = workBookSheet.getSheetKlass().getAnnotation(Sheet.class);
+		return sheet != null ? sheet.name() : workBookSheet.getField().getName();
 	}
 
 	public List<T> getSheetData(Object workbookObj) {

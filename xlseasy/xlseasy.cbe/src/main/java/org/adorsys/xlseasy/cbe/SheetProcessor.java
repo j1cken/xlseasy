@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.adorsys.xlseasy.annotation.SheetCellStyleObject;
+import org.adorsys.xlseasy.annotation.SheetColumn;
 import org.adorsys.xlseasy.annotation.SheetColumnObject;
 import org.adorsys.xlseasy.boot.WorkBookSheet;
 import org.adorsys.xlseasy.impl.converter.SheetConverter;
@@ -34,13 +35,14 @@ public class SheetProcessor {
 
 			SheetColumnObject sheetColumn;
 
+			SheetColumn sheetColumnAnnotation = field.getAnnotation(SheetColumn.class);
 			// Checks if this column holds the reference to another sheet
 			if (workbookDescJpa != null
 					&& workbookDescJpa.isSheet(field.getType())) {
-				sheetColumn = new SheetColumnObject(fieldName,
+				sheetColumn = new SheetColumnObject(sheetColumnAnnotation != null ? sheetColumnAnnotation.columnName() : fieldName,
 						SheetConverter.class, headerStyle, columnStyle);
 			} else {
-				sheetColumn = new SheetColumnObject(fieldName, null,
+				sheetColumn = new SheetColumnObject(sheetColumnAnnotation != null ? sheetColumnAnnotation.columnName() : fieldName, null,
 						headerStyle, columnStyle);
 			}
 
