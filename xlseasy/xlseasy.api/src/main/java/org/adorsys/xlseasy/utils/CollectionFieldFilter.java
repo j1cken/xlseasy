@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
+import org.adorsys.xlseasy.annotation.IgnoreCollection;
 import org.adorsys.xlseasy.utils.ReflectionUtils.FieldFilter;
 
 /**
@@ -16,6 +17,11 @@ import org.adorsys.xlseasy.utils.ReflectionUtils.FieldFilter;
 public class CollectionFieldFilter implements FieldFilter {
 
 	public boolean matches(Field field) {
+		IgnoreCollection[] ignored = field.getAnnotationsByType(IgnoreCollection.class);
+		if (ignored.length > 0) {
+			return false;
+		}
+
 		Type genericType = field.getGenericType();
 		if (genericType instanceof ParameterizedType) {  
             ParameterizedType pt = (ParameterizedType) genericType;  
