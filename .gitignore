@@ -17,3 +17,9 @@ RemoteSystemsTempFiles/
 bin/
 WEB-INF/
 META-INF/
+
+target/
+
+# IDEA
+*.iml
+.idea
